@@ -1,35 +1,13 @@
-import model.*;
-import jakarta.persistence.*;
-import util.JPAUtil;
-
-import java.time.LocalDateTime;
+import model.HiloInsertar;
 
 public class App {
-    public static void main(String[] args) {
-        EntityManager em = JPAUtil.getEntityManager();
+    public static void main(String[] args) throws Exception {
+        HiloInsertar tarea1 = new HiloInsertar(50);
+        HiloInsertar tarea2 = new HiloInsertar(50);
+        HiloInsertar tarea3 = new HiloInsertar(50);
 
-        TypedQuery<Cliente> queryCliente = em.createNamedQuery("Cliente.getById", Cliente.class);
-        queryCliente.setParameter("id_cliente", 1);
-        var cliente = queryCliente.getSingleResult();
-
-        TypedQuery<Barbero> queryBarbero = em.createNamedQuery("Barbero.getById", Barbero.class);
-        queryBarbero.setParameter("id_barbero", 1);
-        var barbero = queryBarbero.getSingleResult();
-
-        TypedQuery<Servicio> queryServicio = em.createNamedQuery("Servicio.getById", Servicio.class);
-        queryServicio.setParameter("id_servicio", 1);
-        var servicio = queryServicio.getSingleResult();
-
-        try (em) {
-            EntityTransaction tx = em.getTransaction();
-            tx.begin();
-            Cita newCita = new Cita(LocalDateTime.now(), cliente, barbero, servicio, "Reserva", "No usar alcohol");
-            em.persist(newCita);
-            tx.commit();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            JPAUtil.close();
-        }
+        new Thread(() -> tarea1.Guardar()).start();
+        new Thread(() -> tarea2.Guardar()).start();
+        new Thread(() -> tarea3.Guardar()).start();
     }
 }
