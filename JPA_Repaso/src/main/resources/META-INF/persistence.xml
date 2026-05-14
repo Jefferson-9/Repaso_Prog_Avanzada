@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+
+    <!-- 1. NOMBRE DE LA UNIDAD: El nombre que usaras en Java (ej. TiendaPU, BarberiaPU) -->
+    <persistence-unit name="JPA_Repaso" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- 2. TUS ENTIDADES: Aquí debes agregar una linea <class> por cada @Entity -->
+
+        <class>model.Cliente</class>
+        <class>model.Servicio</class>
+        <class>model.Cita</class>
+        <class>model.Barbero</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+
+            <!-- 3. BASE DE DATOS: Reemplaza con el nombre de tu base de datos -->
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/JPA_Repaso?useSSL=false&amp;serverTimezone=UTC"/>
+
+            <!-- 4. CREDENCIALES: Tu usuario y clave de MySQL -->
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="1150441341"/>
+
+            <!-- 5. OPCIONES DE HIBERNATE -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>
