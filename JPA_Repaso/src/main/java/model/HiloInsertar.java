@@ -3,7 +3,7 @@ package model;
 import java.sql.*;
 import java.util.Random;
 
-public class HiloInsertar extends Thread {
+public class HiloInsertar implements Runnable {
     private int cantidad;
 
     public HiloInsertar(int cantidad) {

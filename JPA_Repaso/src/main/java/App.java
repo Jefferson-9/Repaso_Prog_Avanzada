@@ -6,8 +6,12 @@ public class App {
         HiloInsertar tarea2 = new HiloInsertar(50);
         HiloInsertar tarea3 = new HiloInsertar(50);
 
-        tarea1.start();
-        tarea2.start();
-        tarea3.start();
+        Thread t1 = new Thread(tarea1);
+        Thread t2 = new Thread(tarea2);
+        Thread t3 = new Thread(tarea3);
+
+        t1.start();
+        t2.start();
+        t3.start();
     }
 }
