@@ -3,14 +3,15 @@ package model;
 import java.sql.*;
 import java.util.Random;
 
-public class HiloInsertar{
+public class HiloInsertar extends Thread {
     private int cantidad;
 
     public HiloInsertar(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public void Guardar() {
+    @Override
+    public void run() {
         Random random = new Random();
 
         String url = "jdbc:mysql://localhost:3306/Empresa";
