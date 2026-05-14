@@ -5,11 +5,10 @@ import java.util.Random;
 
 public class HiloInsertar extends Thread {
     private int cantidad;
-    private Contador contadorCompartido;
+    private static int totalInsertados;
 
-    public HiloInsertar(int cantidad, Contador contadorCompartido) {
+    public HiloInsertar(int cantidad) {
         this.cantidad = cantidad;
-        this.contadorCompartido = contadorCompartido;
     }
 
     @Override
@@ -32,13 +31,18 @@ public class HiloInsertar extends Thread {
 
                  ps.executeUpdate();
 
-                 contadorCompartido.incrementar();
+                 synchronized(HiloInsertar.class) {
+                     totalInsertados++;
+                 }
 
                  System.out.println(Thread.currentThread().getName() + " inserto: " + nombre);
              }
          } catch (SQLException e) {
              e.printStackTrace();
          }
+    }
 
+    public static int getTotalInsertados() {
+        return totalInsertados;
     }
 }
