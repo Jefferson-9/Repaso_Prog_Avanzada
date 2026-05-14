@@ -3,11 +3,13 @@ package model;
 import java.sql.*;
 import java.util.Random;
 
-public class HiloInsertar implements Runnable {
+public class HiloInsertar extends Thread {
     private int cantidad;
+    private Contador contadorCompartido;
 
-    public HiloInsertar(int cantidad) {
+    public HiloInsertar(int cantidad, Contador contadorCompartido) {
         this.cantidad = cantidad;
+        this.contadorCompartido = contadorCompartido;
     }
 
     @Override
@@ -29,6 +31,8 @@ public class HiloInsertar implements Runnable {
                  ps.setInt(2, edad);
 
                  ps.executeUpdate();
+
+                 contadorCompartido.incrementar();
 
                  System.out.println(Thread.currentThread().getName() + " inserto: " + nombre);
              }
